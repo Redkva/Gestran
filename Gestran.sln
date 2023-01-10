@@ -3,7 +3,15 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.3.32901.215
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Gestran", "Gestran\Gestran.csproj", "{41BC197D-9EC4-49DC-A3A3-AB39AB9CFCD3}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "1 - Aplicacao", "1 - Aplicacao", "{C08FA9F0-6FE3-46A4-88DA-196B4194F700}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "2 - Dominio", "2 - Dominio", "{E8BC0066-3FD3-4A3D-A50C-ED61B8916FD1}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "3 - Repositorio", "3 - Repositorio", "{28AC65B5-35F6-4C60-A636-26DDE56D2AA6}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "4 - Infraestrutura", "4 - Infraestrutura", "{A8E9353E-D4E0-4D22-80F4-EC118AF96ECF}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Domain", "Domain\Domain.csproj", "{FA22E389-3A60-4458-8880-D15BB420B518}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -11,13 +19,16 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{41BC197D-9EC4-49DC-A3A3-AB39AB9CFCD3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{41BC197D-9EC4-49DC-A3A3-AB39AB9CFCD3}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{41BC197D-9EC4-49DC-A3A3-AB39AB9CFCD3}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{41BC197D-9EC4-49DC-A3A3-AB39AB9CFCD3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FA22E389-3A60-4458-8880-D15BB420B518}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FA22E389-3A60-4458-8880-D15BB420B518}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FA22E389-3A60-4458-8880-D15BB420B518}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FA22E389-3A60-4458-8880-D15BB420B518}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{FA22E389-3A60-4458-8880-D15BB420B518} = {E8BC0066-3FD3-4A3D-A50C-ED61B8916FD1}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {38D786D8-0397-450C-9F99-4B23D40AC911}
