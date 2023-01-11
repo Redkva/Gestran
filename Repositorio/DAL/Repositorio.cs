@@ -37,10 +37,19 @@ namespace Repositorio.DAL
             throw new NotImplementedException();
         }
 
-        public TEntity GetEntity(int Id)
+        public void Edit(TEntity entity)
         {
-            throw new NotImplementedException();
+            try
+            {
+                dbSet.Entry(entity).State = EntityState.Modified;
+                db.SaveChanges();
+            }
+            catch (Exception ex)
+            {
+                throw new Exception($" [REPOSITORIO LAYER] Edit() > {ex.Message} ");
+            }
         }
+         
 
         public IEnumerable<TEntity> ListEntitys()
         {

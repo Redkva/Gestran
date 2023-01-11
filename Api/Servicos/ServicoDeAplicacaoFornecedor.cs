@@ -31,7 +31,14 @@ namespace Api.Servicos
 
         public string Editar(Fornecedor fornecedor)
         {
-            throw new NotImplementedException();
+            try
+            {
+                return servicoDeDominioDeFornecedor.Editar(fornecedor);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception($" [APPLICATION LAYER] Editar() > {ex.Message} ");
+            }
         }
 
         public List<Fornecedor> ListarFornecedores()

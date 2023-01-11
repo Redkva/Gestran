@@ -7,8 +7,9 @@ using System.Threading.Tasks;
 
 namespace Domain.Repositorio
 {
-    public interface IRepositorioFornecedor: IRepositorio<Fornecedor>
-    {
-        Fornecedor GetFornecedor(int Id);
+    public interface IRepositorioEndereco : IRepositorio<Endereco>
+    { 
+        public List<Endereco> GetEnderecos(List<int> fornecedoresIds);
+
     }
 }

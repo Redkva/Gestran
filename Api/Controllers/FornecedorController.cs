@@ -30,7 +30,7 @@ namespace Api.Controllers
             }
             catch (Exception e)
             {
-                return BadRequest(e);
+                return BadRequest(e.Message);
             }
         }
 
@@ -40,11 +40,12 @@ namespace Api.Controllers
         {
             try
             {
-                return Ok("Cadastrado com sucesso");
+                var retorno = servicoDeAplicacaoDeFornecedor.Editar(fornecedor);
+                return Ok(retorno);
             }
             catch (Exception e)
             {
-                return BadRequest(e);
+                return BadRequest(e.Message);
             }
         }
 
@@ -59,7 +60,7 @@ namespace Api.Controllers
             }
             catch (Exception e)
             {
-                return BadRequest(e);
+                return BadRequest(e.Message);
             }
         }
 
@@ -72,7 +73,7 @@ namespace Api.Controllers
             }
             catch (Exception e)
             {
-                return BadRequest(e);
+                return BadRequest(e.Message);
             }
         }
 
@@ -86,7 +87,7 @@ namespace Api.Controllers
             }
             catch (Exception e)
             {
-                return BadRequest(e);
+                return BadRequest(e.Message);
             }
         }
 

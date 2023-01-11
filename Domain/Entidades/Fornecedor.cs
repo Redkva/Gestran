@@ -20,8 +20,8 @@ namespace Domain.Entidades
 
         public ICollection<Endereco>? Enderecos { get; set; }
 
-        [JsonIgnore]//Não mostrar no swagger a propriedade
-        public ICollection<EnderecoFornecedor>? EnderecoFornecedor { get; set; }
+        //[JsonIgnore]//Não mostrar no swagger a propriedade
+        //public ICollection<EnderecoFornecedor>? EnderecoFornecedor { get; set; }
 
     }
 }

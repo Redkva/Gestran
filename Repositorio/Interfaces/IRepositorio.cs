@@ -10,7 +10,7 @@ namespace Repositorio.Interfaces
     public interface IRepositorio<TEntity> where TEntity : class
     {
         void Create(TEntity entity);
-        TEntity GetEntity(int Id);
+        void Edit(TEntity entity);
         IEnumerable<TEntity> ListEntitys();
         void Delete(int Id);
     }

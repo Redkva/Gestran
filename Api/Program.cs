@@ -25,6 +25,7 @@ builder.Services.AddScoped<IServicoDeDominioDeFornecedor, ServicoDeDominioDeForn
 
 //Camada de Repositorio
 builder.Services.AddScoped<IRepositorioFornecedor, RepositorioFornecedor>();
+builder.Services.AddScoped<IRepositorioEndereco, RepositorioEndereco>();
 
 #endregion
 

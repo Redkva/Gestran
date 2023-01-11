@@ -12,8 +12,19 @@ namespace Repositorio.DAL
 {
     public class RepositorioFornecedor : Repositorio<Fornecedor>, IRepositorioFornecedor
     {
-        public RepositorioFornecedor(RepositorioBase dbContext) : base(dbContext) { }
+        protected RepositorioBase db;
+        public RepositorioFornecedor(RepositorioBase dbContext) : base(dbContext) { db = dbContext; }
 
-
+        public Fornecedor GetFornecedor(int Id)
+        {
+            try
+            {
+                return db.Fornecedores.Where(x => x.IdFornecedor == Id).FirstOrDefault();
+            }
+            catch (Exception ex)
+            {
+                throw new Exception($" [REPOSITORIO LAYER] GetFornecedor() > {ex.Message} ");
+            }
+        }
     }
 }
