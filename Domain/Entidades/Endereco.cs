@@ -19,5 +19,6 @@ namespace Domain.Entidades
         public string? Cidade { get; set; }
         public string? Estado { get; set; }
         public string? Pais { get; set; }
+     
     }
 }
