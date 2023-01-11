@@ -1,4 +1,6 @@
-﻿using Domain.Entidades;
+﻿using Api.Servicos;
+using Api.Servicos.Interfaces;
+using Domain.Entidades;
 using Domain.Servicos;
 using Microsoft.AspNetCore.Mvc;
 using Repositorio.DAL;
@@ -10,12 +12,12 @@ namespace Api.Controllers
     [ApiController]
     public class FornecedorController : ControllerBase
     {
-        protected RepositorioBase _rep;
 
-        public FornecedorController(RepositorioBase rep)
+        private readonly IServicoDeAplicacaoDeFornecedor servicoDeAplicacaoDeFornecedor;
+
+        public FornecedorController(IServicoDeAplicacaoDeFornecedor _servicoDeAplicacaoDeFornecedor)
         {
-            _rep = rep;
-
+            servicoDeAplicacaoDeFornecedor = _servicoDeAplicacaoDeFornecedor;
         }
 
         [Route("Cadastrar"), HttpPost]
@@ -23,12 +25,12 @@ namespace Api.Controllers
         {
             try
             {
-                var retorno = new ServicoDeDominioDeFornecedor().Cadastrar(fornecedor);
+                var retorno = servicoDeAplicacaoDeFornecedor.Cadastrar(fornecedor);
                 return Ok(retorno);
             }
             catch (Exception e)
             {
-                return BadRequest("Falha ao tentar cadastrar");
+                return BadRequest(e);
             }
         }
 
@@ -42,7 +44,7 @@ namespace Api.Controllers
             }
             catch (Exception e)
             {
-                return BadRequest("Falha ao tentar cadastrar");
+                return BadRequest(e);
             }
         }
 
@@ -52,14 +54,12 @@ namespace Api.Controllers
         {
             try
             {
-                var xptro = _rep.Fornecedores.ToList();
-
-                var retorno = new ServicoDeDominioDeFornecedor().ListarFornecedores();
+                var retorno = servicoDeAplicacaoDeFornecedor.ListarFornecedores();
                 return Ok(retorno);
             }
             catch (Exception e)
             {
-                return BadRequest("Falha ao tentar cadastrar");
+                return BadRequest(e);
             }
         }
 
@@ -72,7 +72,7 @@ namespace Api.Controllers
             }
             catch (Exception e)
             {
-                return BadRequest("Falha ao tentar cadastrar");
+                return BadRequest(e);
             }
         }
 
@@ -86,7 +86,7 @@ namespace Api.Controllers
             }
             catch (Exception e)
             {
-                return BadRequest("Falha ao tentar cadastrar");
+                return BadRequest(e);
             }
         }
 

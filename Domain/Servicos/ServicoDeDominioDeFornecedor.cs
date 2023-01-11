@@ -1,22 +1,34 @@
 ﻿using Domain.Entidades;
-using Domain.Interfaces; 
+using Domain.Interfaces;
+using Domain.Repositorio;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
- 
+
 namespace Domain.Servicos
 {
     public class ServicoDeDominioDeFornecedor : IServicoDeDominioDeFornecedor
     {
-    
+        IRepositorioFornecedor repositorioFornecedor;
+
+        public ServicoDeDominioDeFornecedor(IRepositorioFornecedor _repositorioFornecedor)
+        {
+            repositorioFornecedor = _repositorioFornecedor;
+        }
 
         public string Cadastrar(Fornecedor fornecedor)
         {
-
-         
-            throw new NotImplementedException();
+            try
+            {
+                repositorioFornecedor.Create(fornecedor);
+                return "Cadastrado com sucesso";
+            }
+            catch (Exception ex)
+            {
+                throw new Exception($" [DOMAIN LAYER] Cadastrar() > {ex.Message} ");
+            }
         }
 
         public string Deletar(int Id)
@@ -33,14 +45,11 @@ namespace Domain.Servicos
         {
             try
             {
-                var retorno = new List<Fornecedor>();
-
-                return retorno;
+                return repositorioFornecedor.ListEntitys().ToList();
             }
             catch (Exception ex)
             {
-
-                throw new Exception($" ListarFornecedores() > {ex.Message} ");
+                throw new Exception($" [DOMAIN LAYER] ListarFornecedores() > {ex.Message} ");
             }
         }
 

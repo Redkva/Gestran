@@ -12,7 +12,7 @@ namespace Domain.Entidades
     public class Fornecedor
     {
         [Key]
-        public int Id { get; set; }
+        public int IdFornecedor { get; set; }
         public string? Nome { get; set; }
         public string? CNPJ { get; set; }
         public string? Telefone { get; set; }

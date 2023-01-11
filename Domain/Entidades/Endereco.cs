@@ -10,7 +10,7 @@ namespace Domain.Entidades
     public class Endereco
     {
         [Key]
-        public int Id { get; set; }
+        public int IdEndereco { get; set; }
 
         public string? CEP { get; set; }
         public string? Rua { get; set; }
