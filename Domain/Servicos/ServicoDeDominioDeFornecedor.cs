@@ -74,7 +74,11 @@ namespace Domain.Servicos
 
                 //Inserer os Enderecos Novos
                 var enderecosNovos = fornecedor.Enderecos.Where(e => e.IdEndereco == 0 || !enderecos.Select(x => x.IdEndereco).Contains(e.IdEndereco)).ToList();
-                enderecosNovos.ForEach(e => repositorioEndereco.Create(e));
+                enderecosNovos.ForEach(e =>
+                {
+                    e.IdEndereco = 0;
+                    repositorioEndereco.Create(e);
+                });
 
                 //Atualiza os Enderecos que foram modificados
                 var enderecosUpdate = fornecedor.Enderecos.Where(e => enderecos.Select(x => x.IdEndereco).Contains(e.IdEndereco)).ToList();
