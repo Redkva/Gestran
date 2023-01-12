@@ -69,7 +69,8 @@ namespace Api.Controllers
         {
             try
             {
-                return Ok(new List<Fornecedor>());
+                var retorno = servicoDeAplicacaoDeFornecedor.ObterFornecedorUnico(Id);
+                return Ok(retorno);
             }
             catch (Exception e)
             {
@@ -83,7 +84,8 @@ namespace Api.Controllers
         {
             try
             {
-                return Ok("Cadastrado com sucesso");
+                var retorno = servicoDeAplicacaoDeFornecedor.Deletar(Id);
+                return Ok(retorno);
             }
             catch (Exception e)
             {

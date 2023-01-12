@@ -16,7 +16,7 @@ namespace Api.Servicos
         {
             try
             {
-                return servicoDeDominioDeFornecedor.Cadastrar(fornecedor); 
+                return servicoDeDominioDeFornecedor.Cadastrar(fornecedor);
             }
             catch (Exception ex)
             {
@@ -26,7 +26,14 @@ namespace Api.Servicos
 
         public string Deletar(int Id)
         {
-            throw new NotImplementedException();
+            try
+            {
+                return servicoDeDominioDeFornecedor.Deletar(Id);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception($" [APPLICATION LAYER] Deletar() > {ex.Message} ");
+            }
         }
 
         public string Editar(Fornecedor fornecedor)
@@ -55,7 +62,14 @@ namespace Api.Servicos
 
         public Fornecedor ObterFornecedorUnico(int Id)
         {
-            throw new NotImplementedException();
+            try
+            {
+                return servicoDeDominioDeFornecedor.ObterFornecedorUnico(Id);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception($" [APPLICATION LAYER] ObterFornecedorUnico() > {ex.Message} ");
+            }
         }
     }
 }

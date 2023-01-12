@@ -1,5 +1,6 @@
 ﻿using Domain.Entidades;
 using Domain.Repositorio;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -17,7 +18,11 @@ namespace Repositorio.DAL
         {
             try
             {
-                return db.Enderecos.Where(x => fornecedoresIds.Contains(x.IdFornecedor)).ToList();
+                var retorno = db.Enderecos.Where(x => fornecedoresIds.Contains(x.IdFornecedor)).ToList();
+
+                retorno.ForEach(e => db.Entry(e).State = EntityState.Detached);
+
+                return retorno;
             }
             catch (Exception ex)
             {

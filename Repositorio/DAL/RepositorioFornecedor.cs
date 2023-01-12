@@ -19,7 +19,11 @@ namespace Repositorio.DAL
         {
             try
             {
-                return db.Fornecedores.Where(x => x.IdFornecedor == Id).FirstOrDefault();
+                var retorno = db.Fornecedores.Where(x => x.IdFornecedor == Id).FirstOrDefault();
+                  
+                if (retorno != null) db.Entry(retorno).State = EntityState.Detached;
+
+                return retorno;
             }
             catch (Exception ex)
             {

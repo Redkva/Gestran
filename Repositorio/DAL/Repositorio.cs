@@ -32,9 +32,17 @@ namespace Repositorio.DAL
             }
         }
 
-        public void Delete(int Id)
+        public void Delete(TEntity entity)
         {
-            throw new NotImplementedException();
+            try
+            {
+                dbSet.Remove(entity);
+                db.SaveChanges();
+            }
+            catch (Exception ex)
+            {
+                throw new Exception($" [REPOSITORIO LAYER] Delete() > {ex.Message} ");
+            }
         }
 
         public void Edit(TEntity entity)

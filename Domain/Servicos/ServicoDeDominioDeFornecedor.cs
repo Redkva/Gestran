@@ -26,7 +26,10 @@ namespace Domain.Servicos
         {
             try
             {
+                ValidaDados(fornecedor);
+
                 repositorioFornecedor.Create(fornecedor);
+
                 return "Cadastrado com sucesso";
             }
             catch (Exception ex)
@@ -37,23 +40,53 @@ namespace Domain.Servicos
 
         public string Deletar(int Id)
         {
-            throw new NotImplementedException();
+            try
+            {
+                //Busca entidade no banco pelo Id
+                var _f = ObterFornecedorUnico(Id);
+
+                //Caso não retorne nada, então não existe no banco
+                if (_f == null)
+                    return "Fornecedor não existe";
+
+                //Deleta do banco
+                repositorioFornecedor.Delete(_f);
+
+                return "Deletado com sucesso";
+            }
+            catch (Exception ex)
+            {
+                throw new Exception($" [DOMAIN LAYER] Deletar() > {ex.Message} ");
+            }
         }
 
         public string Editar(Fornecedor fornecedor)
         {
             try
             {
-                var _f = repositorioFornecedor.GetFornecedor(fornecedor.IdFornecedor);
+                ValidaDados(fornecedor, true);
 
-                if (_f == null)
-                {
-                    Cadastrar(fornecedor);
-                    return "Cadastraodo com sucesso";
-                }
+                //Seta o Id do Fornecedor nos Enderecos, para nao dar erro na FK na hora do Insert
+                fornecedor.Enderecos.ToList().ForEach(e => e.IdFornecedor = fornecedor.IdFornecedor);
 
+                //Busca todos os enderecos do banco
+                var enderecos = repositorioEndereco.GetEnderecos(new List<int>() { fornecedor.IdFornecedor }).ToList();
 
+                //Inserer os Enderecos Novos
+                var enderecosNovos = fornecedor.Enderecos.Where(e => e.IdEndereco == 0 || !enderecos.Select(x => x.IdEndereco).Contains(e.IdEndereco)).ToList();
+                enderecosNovos.ForEach(e => repositorioEndereco.Create(e));
+
+                //Atualiza os Enderecos que foram modificados
+                var enderecosUpdate = fornecedor.Enderecos.Where(e => enderecos.Select(x => x.IdEndereco).Contains(e.IdEndereco)).ToList();
+                enderecosUpdate.ForEach(e => repositorioEndereco.Edit(e));
+
+                //Deleta os Enderecos
+                var enderecosDelete = enderecos.Where(e => !fornecedor.Enderecos.Select(x => x.IdEndereco).Contains(e.IdEndereco)).ToList();
+                enderecosDelete.ForEach(e => repositorioEndereco.Delete(e));
+
+                //Atualiza Fornecedor
                 repositorioFornecedor.Edit(fornecedor);
+
                 return "Editado com sucesso";
             }
             catch (Exception ex)
@@ -97,6 +130,9 @@ namespace Domain.Servicos
                 //Busca o fornecedor pelo Id
                 var forn = repositorioFornecedor.GetFornecedor(Id);
 
+                if (forn == null)
+                    throw new Exception($"Fornecedor nao existe");
+
                 //Busca todos os enderecos dos fornecedores encontrados
                 forn.Enderecos = repositorioEndereco.GetEnderecos(new List<int>() { Id }).ToList();
 
@@ -108,5 +144,44 @@ namespace Domain.Servicos
                 throw new Exception($" [DOMAIN LAYER] ObterFornecedorUnico() > {ex.Message} ");
             }
         }
+
+
+        #region Utils
+
+        public void ValidaDados(Fornecedor fornecedor, bool verificaExistenciaNoBanco = false)
+        {
+            try
+            {
+                if (fornecedor == null)
+                    throw new Exception($"Nenhum fornecedor enviado no Body para cadastro");
+
+                if (string.IsNullOrEmpty(fornecedor.Nome) || string.IsNullOrEmpty(fornecedor.Nome.Trim()))
+                    throw new Exception($"O Nome do fornecedor deve ser informado");
+
+                if (fornecedor.Enderecos == null || fornecedor.Enderecos.Count <= 0)
+                    throw new Exception($"O fornecedor deve ter ao menos 1 Endereco");
+
+                if ((string.IsNullOrEmpty(fornecedor.Email) && string.IsNullOrEmpty(fornecedor.Telefone)) || (string.IsNullOrEmpty(fornecedor.Email.Trim()) && string.IsNullOrEmpty(fornecedor.Telefone.Trim())))
+                    throw new Exception($"O fornecedor deve ter ao menos um meio de contato(Email OU Telefone)");
+
+                if (verificaExistenciaNoBanco)
+                {
+                    if (fornecedor.IdFornecedor == 0)
+                        throw new Exception($"Id do fornecedor deve ser maior que zero(0) ");
+
+                    var _f = ObterFornecedorUnico(fornecedor.IdFornecedor);
+
+                    if (_f == null)
+                        throw new Exception($"Nenhum fornecedor com o Id.{fornecedor.IdFornecedor} localizado");
+                }
+
+            }
+            catch (Exception ex)
+            {
+                throw new Exception($" ValidaDados() > {ex.Message} ");
+            }
+        }
+
+        #endregion
     }
 }

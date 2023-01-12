@@ -11,6 +11,6 @@ namespace Domain.Repositorio
         void Create(TEntity entity);
         void Edit(TEntity entity); 
         IEnumerable<TEntity> ListEntitys();
-        void Delete(int Id);
+        void Delete(TEntity entity);
     }
 }
